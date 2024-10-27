@@ -1,5 +1,7 @@
 Title: staff
+
 Description: A button which works with QUEUE (UnrealIRCd module by Valware)
+
 Author: uMut @ Ayna.org
 
 This plugin works only with Valware's unrealircd QUEUE module.
