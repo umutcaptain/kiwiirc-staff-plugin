@@ -18,19 +18,16 @@ License: GPLv3
 
 
 <template id="queue_button">
-    <div class="valware-unrealircd-queue">
-        <a @click="confirmAction" data-intro="Contact Network Staff" data-step="5" class="kiwi-userbox-action">
+        <a @click="confirmAction" data-intro="Contact Network Staff" data-step="5" class="kiwi-userbox-action" style="border: 1px solid #CB4335;">
             <span >
                 <i class="fa fa-exclamation" aria-hidden="true"></i>
                 Contact Network Staff
             </span>
         </a>
-    </div>
 </template>
 
 <script>
 kiwi.plugin('valware-unrealircd-queue', (kiwi, log) => {
-    console.log('valware-unrealircd-queue plugin installed.');
 
     const buttonMethods = {
         confirmAction() {
