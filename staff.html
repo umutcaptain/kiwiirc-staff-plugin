@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Title: staff
 Description: A button which works with QUEUE (UnrealIRCd module by Valware)
 Author: uMut @ Ayna.org
@@ -6,10 +6,12 @@ License: GPLv3
 -->
 <template id="valware-unrealircd-queue">
     <a @click="confirmAction" data-intro="Contact Network Staff" data-step="5">
-        <span v-if="$state.ui.app_width > 769" style="background: #578bad; color: #fff; border: 1px solid #578bad; border-radius:10px; padding-left: 5px; padding-right: 10px ;padding-top: 5px; padding-bottom: 5px;">❗Contact Network Staff</span>
-        <div v-else 
-             style="background-color: #578bad; color: #fff; border-radius:2px; padding: 5px; display: initial;">
-            ❗
+        <span v-if="$state.ui.app_width > 769" class="p-unreal-queue-button">
+            <i class="fa fa-exclamation" aria-hidden="true"></i>
+            Contact Network Staff
+        </span>
+        <div v-else class="p-unreal-queue-button">
+            <i class="fa fa-exclamation" aria-hidden="true"></i>
         </div>
     </a>
 </template>
@@ -17,54 +19,70 @@ License: GPLv3
 
 <template id="queue_button">
     <div class="valware-unrealircd-queue">
-        <a @click="confirmAction" data-intro="Contact Network Staff" data-step="5">
-            <span style="background: #578bad; color: #fff; border: 1px solid #578bad; border-radius:10px; padding-left: 5px; padding-right: 10px ;padding-top: 5px; padding-bottom: 5px;">❗Contact Network Staff</span>
+        <a @click="confirmAction" data-intro="Contact Network Staff" data-step="5" class="kiwi-userbox-action">
+            <span >
+                <i class="fa fa-exclamation" aria-hidden="true"></i>
+                Contact Network Staff
+            </span>
         </a>
     </div>
 </template>
 
 <script>
-kiwi.plugin('valware-unrealircd-queue', function(kiwi, log) {
+kiwi.plugin('valware-unrealircd-queue', (kiwi, log) => {
     console.log('valware-unrealircd-queue plugin installed.');
 
-    var buttonMethods = {
-        confirmAction: function() {
+    const buttonMethods = {
+        confirmAction() {
             // Ask for confirmation
             if (confirm("Are you sure you want to contact network staff?")) {
                 // If confirmed, execute buttonClicked
                 this.buttonClicked();
             }
         },
-        buttonClicked: function() {
+        buttonClicked() {
             kiwi.emit('input.raw', '/RAW QUEUE ');
 
             // Give the user the feedback
-            var mynick = kiwi.state.getActiveNetwork().nick;
-            var buffer = kiwi.state.getActiveBuffer();
-            var network = this.$state.getActiveNetwork();
+            const network = this.$state.getActiveNetwork();
+            const buffer = kiwi.state.getActiveBuffer();
             kiwi.state.addMessage(buffer, {
-                'message': mynick + ' Thank you, a member of staff will write to you shortly, please keep an eye out for a private message.',
+                'message': network.nick + ' Thank you, a member of staff will write to you shortly, please keep an eye out for a private message.',
                 'bodyTemplate': '',
                 'nick': 'INFO',
                 'ident': 'INFO',
                 'hostname': 'INFO',
-                'target': mynick,
+                'target': network.nick,
             });
         }
     }
 
-    var button1 = new kiwi.Vue({
+    const headerButton = {
         template: '#valware-unrealircd-queue',
         methods: buttonMethods,
-    });
+    };
 
-    var button2 = new kiwi.Vue({
+    const userboxButton = {
         template: '#queue_button',
         methods: buttonMethods,
-    });
+    };
 
-    kiwi.addUi('header_channel', button1.$mount().$el);
-    kiwi.addUi('header_query', button1.$mount().$el);
-    kiwi.addUi('userbox_button', button2.$mount().$el);
+    kiwi.addUi('header_channel', headerButton);
+    kiwi.addUi('header_query', headerButton);
+    kiwi.addUi('userbox_button', userboxButton);
 });
 </script>
+
+<style>
+    .p-unreal-queue-button {
+        background: #578bad;
+        color: #fff;
+        border: 1px solid #578bad;
+        border-radius: 10px;
+        padding: 8px 10px 5px 10px;
+    }
+
+    .p-unreal-queue-button i {
+        float: none;
+    }
+</style>
