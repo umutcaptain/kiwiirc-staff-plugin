@@ -12,6 +12,6 @@ Requirements : Unrealircd6.* and third/queue unrealircd module
 
 Pls see : https://github.com/ValwareIRC/valware-unrealircd-mods/blob/main/queue/README.md
 
-Thanks to @Valware .)
+Thanks to @Valware minor changes she made .)
 
-And special thanks to itsonlybinary, plugin updated by @itsonlybinary.
+And special thanks to itsonlybinary, minor changes by @itsonlybinary.
